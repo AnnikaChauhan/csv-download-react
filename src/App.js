@@ -1,26 +1,27 @@
 import { CSVLink } from "react-csv";
+import JSONdata from "./data.json";
 
 const App = () => {
-  const headers = [
-    { label: "First Name", key: "firstname" },
-    { label: "Last Name", key: "lastname" },
-    { label: "Email", key: "email" },
-  ];
-
-  // const data = [
-  //   { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
-  //   { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
-  //   { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" },
-  // ];
-
-  const data = "client_id↵883982↵1675849↵2216671↵2952070↵6758438";
+  const handleDownload = () => {
+    // this doesn't work
+    var link = window.document.createElement("a");
+    link.setAttribute(
+      "href",
+      "data:text/csv;charset=utf-8,%EF%BB%BF" + encodeURI(JSONdata.data)
+    );
+    link.setAttribute("download", "upload_data.csv");
+    link.click();
+    // window.open(encodeURI(JSONdata.data));
+  };
 
   return (
     <div className="App">
       <h1>CSV Download Test</h1>
-      <CSVLink data={data} filename={"Cluster CSV FILE"}>
+      <CSVLink data={JSONdata.data} filename={"Cluster CSV FILE"}>
         Download
       </CSVLink>
+      <br />
+      <button onClick={handleDownload}>CLICK FOR NON PACKAGE DOWNLOAD</button>
     </div>
   );
 };
